@@ -1,151 +1,187 @@
 alert("JS起動");
 const questions = [
+  {
+    q:"意味が分からないことをやれと言われた時どうする？",
+    a:[
+      ["とりあえず動く","D"],
+      ["理由を聞く","I"],
+      ["空気を読む","A"],
+      ["安心できるならやる","Y"]
+    ]
+  },
+  {
+    q:"一番モチベーションが上がる瞬間は？",
+    a:[
+      ["欲しいものがある時","D"],
+      ["理解できた時","I"],
+      ["感情が動いた時","A"],
+      ["安心できた時","Y"]
+    ]
+  },
+  {
+    q:"行動する時に重要なのは？",
+    a:[
+      ["勢い","D"],
+      ["納得","I"],
+      ["気持ち","A"],
+      ["安定","Y"]
+    ]
+  },
+  {
+    q:"楽しいと感じやすいのは？",
+    a:[
+      ["刺激","D"],
+      ["学び","I"],
+      ["感情共有","A"],
+      ["落ち着き","Y"]
+    ]
+  },
+  {
+    q:"人から止められた時どう思う？",
+    a:[
+      ["やってから考える","D"],
+      ["理由次第","I"],
+      ["気持ちは分かる","A"],
+      ["不安になる","Y"]
+    ]
+  },
 
-{
-q:"初めての場所でどう動く？",
+  {
+    q:"会話中に一番見ているものは？",
+    a:[
+      ["今の発言","S"],
+      ["流れ","J"],
+      ["全体空気","K"],
+      ["本音や裏","L"]
+    ]
+  },
+  {
+    q:"考え事をする時どうなる？",
+    a:[
+      ["直感で決める","S"],
+      ["順番に整理する","J"],
+      ["全体を見る","K"],
+      ["深く掘る","L"]
+    ]
+  },
+  {
+    q:"気になる言葉は？",
+    a:[
+      ["今","S"],
+      ["なぜ","J"],
+      ["全体","K"],
+      ["本質","L"]
+    ]
+  },
+  {
+    q:"人の発言を聞く時は？",
+    a:[
+      ["単語を見る","S"],
+      ["前後の流れを見る","J"],
+      ["場全体を見る","K"],
+      ["矛盾を見る","L"]
+    ]
+  },
+  {
+    q:"議論で強いのは？",
+    a:[
+      ["反応速度","S"],
+      ["説明力","J"],
+      ["俯瞰視点","K"],
+      ["深掘り","L"]
+    ]
+  },
 
-a:[
-["直感で動く","D"],
-["周囲を見る","Y"]
-]
-},
+  {
+    q:"覚えやすいのは？",
+    a:[
+      ["法則","O"],
+      ["繰り返し","C"],
+      ["映像","G"],
+      ["感情","T"]
+    ]
+  },
+  {
+    q:"勉強で頭に残るのは？",
+    a:[
+      ["仕組み理解","O"],
+      ["反復練習","C"],
+      ["図や景色","G"],
+      ["感情経験","T"]
+    ]
+  },
+  {
+    q:"昔の記憶を思い出す時は？",
+    a:[
+      ["構造","O"],
+      ["身体感覚","C"],
+      ["映像","G"],
+      ["感情","T"]
+    ]
+  },
+  {
+    q:"人を覚える時は？",
+    a:[
+      ["特徴や共通点","O"],
+      ["何回会ったか","C"],
+      ["顔や雰囲気","G"],
+      ["感情エピソード","T"]
+    ]
+  },
+  {
+    q:"理解しやすい説明は？",
+    a:[
+      ["法則説明","O"],
+      ["何回も実践","C"],
+      ["図解","G"],
+      ["感情込みの話","T"]
+    ]
+  },
 
-{
-q:"考える時どうなる？",
-
-a:[
-["勢い","S"],
-["分析","J"]
-]
-}
-
+  {
+    q:"人間関係で一番欲しいものは？",
+    a:[
+      ["安心","Q"],
+      ["共感","U"],
+      ["尊敬","F"],
+      ["主導権","N"]
+    ]
+  },
+  {
+    q:"否定された時どうなる？",
+    a:[
+      ["傷つく","Q"],
+      ["理解してほしくなる","U"],
+      ["見返したくなる","F"],
+      ["主導権を握り返したくなる","N"]
+    ]
+  },
+  {
+    q:"理想の関係性は？",
+    a:[
+      ["落ち着ける","Q"],
+      ["分かり合える","U"],
+      ["認め合える","F"],
+      ["対等に主導できる","N"]
+    ]
+  },
+  {
+    q:"苦手なのは？",
+    a:[
+      ["不安定な人","Q"],
+      ["冷たい人","U"],
+      ["見下してくる人","F"],
+      ["支配してくる人","N"]
+    ]
+  },
+  {
+    q:"一番嫌なのは？",
+    a:[
+      ["否定される","Q"],
+      ["理解されない","U"],
+      ["認められない","F"],
+      ["自由を奪われる","N"]
+    ]
+  }
 ];
-
-const typeNames = {
-
-DS:"突破者",
-DJ:"戦術家",
-
-YS:"守護者",
-YJ:"分析者"
-
-};
-
-const typeText = {
-
-DS:"考える前に動く。",
-DJ:"勝つ方法を考える。",
-
-YS:"安全を大事にする。",
-YJ:"慎重に全体を見る。"
-
-};
-
-let current = 0;
-
-let scores = {
-
-D:0,
-Y:0,
-
-S:0,
-J:0
-
-};
-
-const questionEl =
-document.getElementById("question");
-
-const answersEl =
-document.getElementById("answers");
-
-const countEl =
-document.getElementById("count");
-
-const bar =
-document.getElementById("bar");
-
-const resultEl =
-document.getElementById("result");
-
-const resultCode =
-document.getElementById("resultCode");
-
-const resultName =
-document.getElementById("resultName");
-
-const resultText =
-document.getElementById("resultText");
-
-function showQuestion(){
-
-const q = questions[current];
-
-questionEl.innerText = q.q;
-
-answersEl.innerHTML = "";
-
-countEl.innerText =
-(current + 1) + " / " + questions.length;
-
-bar.style.width =
-((current + 1) / questions.length * 100) + "%";
-
-q.a.forEach(function(answer){
-
-const btn =
-document.createElement("button");
-
-btn.innerText = answer[0];
-
-btn.onclick = function(){
-
-scores[answer[1]]++;
-
-current++;
-
-if(current < questions.length){
-
-showQuestion();
-
-}else{
-
-showResult();
-
-}
-
-};
-
-answersEl.appendChild(btn);
-
-});
-
-}
-
-function showResult(){
-
-document.querySelector(".card")
-.style.display = "none";
-
-resultEl.classList.remove("hidden");
-
-const energy =
-scores.D >= scores.Y ? "D" : "Y";
-
-const thinking =
-scores.S >= scores.J ? "S" : "J";
-
-const code =
-energy + thinking;
-
-resultCode.innerText = code;
-
-resultName.innerText =
-typeNames[code];
-
-resultText.innerText =
-typeText[code];
-
-}
-
 showQuestion();
