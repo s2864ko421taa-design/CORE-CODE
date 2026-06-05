@@ -1,3 +1,4 @@
+alert("JS起動");
 const questions = [
   {
     q: "初めての場所でどう動く？",
