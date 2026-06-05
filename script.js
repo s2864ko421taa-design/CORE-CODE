@@ -8,6 +8,7 @@ a: [
 [“安心できるならやる”, “Y”]
 ]
 },
+
 {
 q: “考え事をする時どうなる？”,
 a: [
@@ -17,6 +18,7 @@ a: [
 [“深く掘る”, “L”]
 ]
 },
+
 {
 q: “覚えやすいのは？”,
 a: [
@@ -26,6 +28,7 @@ a: [
 [“感情”, “T”]
 ]
 },
+
 {
 q: “人間関係で一番欲しいものは？”,
 a: [
@@ -91,16 +94,32 @@ DL: “images/dl.png”
 let current = 0;
 
 let scores = {
-D: 0, Y: 0, A: 0, I: 0,
-S: 0, J: 0, K: 0, L: 0,
-O: 0, C: 0, G: 0, T: 0,
-Q: 0, U: 0, F: 0, N: 0
+D: 0,
+Y: 0,
+A: 0,
+I: 0,
+
+S: 0,
+J: 0,
+K: 0,
+L: 0,
+
+O: 0,
+C: 0,
+G: 0,
+T: 0,
+
+Q: 0,
+U: 0,
+F: 0,
+N: 0
 };
 
 const questionEl = document.getElementById(“question”);
 const answersEl = document.getElementById(“answers”);
 const countEl = document.getElementById(“count”);
 const bar = document.getElementById(“bar”);
+
 const resultEl = document.getElementById(“result”);
 const resultCode = document.getElementById(“resultCode”);
 const resultName = document.getElementById(“resultName”);
@@ -108,57 +127,95 @@ const resultText = document.getElementById(“resultText”);
 const resultImage = document.getElementById(“resultImage”);
 
 function showQuestion() {
+
 const q = questions[current];
 
 questionEl.innerText = q.q;
+
 answersEl.innerHTML = “”;
-countEl.innerText = ${current + 1} / ${questions.length};
-bar.style.width = ${((current + 1) / questions.length) * 100}%;
+
+countEl.innerText =
+${current + 1} / ${questions.length};
+
+bar.style.width =
+${((current + 1) / questions.length) * 100}%;
 
 q.a.forEach(answer => {
-const btn = document.createElement(“button”);
-btn.innerText = answer[0];
 
+const btn =
+document.createElement("button");
+btn.innerText = answer[0];
 btn.onclick = function () {
   scores[answer[1]]++;
   current++;
-  if (current < questions.length) {
+  if(current < questions.length){
     showQuestion();
-  } else {
+  }else{
     showResult();
   }
 };
 answersEl.appendChild(btn);
 
 });
+
 }
 
-function top(codes) {
-return codes.sort((a, b) => scores[b] - scores[a])[0];
+function top(codes){
+
+return codes.sort((a,b)=>
+scores[b] - scores[a])[0];
+
 }
 
-function showResult() {
-document.querySelector(”.card”).style.display = “none”;
+function showResult(){
+
+document.querySelector(”.card”)
+.style.display = “none”;
+
 resultEl.classList.remove(“hidden”);
 
-const energy = top([“D”, “Y”, “A”, “I”]);
-const thinking = top([“S”, “J”, “K”, “L”]);
-const memory = top([“O”, “C”, “G”, “T”]);
-const social = top([“Q”, “U”, “F”, “N”]);
+const energy =
+top([“D”,“Y”,“A”,“I”]);
 
-const mainCode = energy + thinking;
-const fullCode = ${mainCode}/${memory}${social};
+const thinking =
+top([“S”,“J”,“K”,“L”]);
 
-resultCode.innerText = fullCode;
-resultName.innerText = typeNames[mainCode] || “未分類”;
-resultText.innerText = typeText[mainCode] || “あなたの思考構造が解析されました。”;
+const memory =
+top([“O”,“C”,“G”,“T”]);
 
-if (typeImages[mainCode]) {
-resultImage.src = typeImages[mainCode];
-resultImage.style.display = “block”;
-} else {
-resultImage.style.display = “none”;
+const social =
+top([“Q”,“U”,“F”,“N”]);
+
+const mainCode =
+energy + thinking;
+
+const fullCode =
+${mainCode}/${memory}${social};
+
+resultCode.innerText =
+fullCode;
+
+resultName.innerText =
+typeNames[mainCode] || “未分類”;
+
+resultText.innerText =
+typeText[mainCode] ||
+“あなたの思考構造が解析されました。”;
+
+if(typeImages[mainCode]){
+
+resultImage.src =
+typeImages[mainCode];
+resultImage.style.display =
+"block";
+
+}else{
+
+resultImage.style.display =
+"none";
+
 }
+
 }
 
 showQuestion();
