@@ -1,3 +1,4 @@
+alert("JS起動");
 const questions = [
 
 {
