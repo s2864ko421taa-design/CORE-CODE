@@ -1,28 +1,13 @@
 <script>
+document.getElementById("question").innerText = "初めての場所でどう動く？";
 
-const question =
-"初めての場所でどう動く？";
+const box = document.getElementById("answers");
 
-const answers = [
-"直感で動く",
-"周囲を見る"
-];
+const btn1 = document.createElement("button");
+btn1.innerText = "直感で動く";
+box.appendChild(btn1);
 
-document.getElementById("question").innerText =
-question;
-
-const box =
-document.getElementById("answers");
-
-answers.forEach(text => {
-
-const btn =
-document.createElement("button");
-
-btn.innerText = text;
-
-box.appendChild(btn);
-
-});
-
+const btn2 = document.createElement("button");
+btn2.innerText = "周囲を見る";
+box.appendChild(btn2);
 </script>
