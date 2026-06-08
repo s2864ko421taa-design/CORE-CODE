@@ -1,63 +1,153 @@
 body{
+
   margin:0;
+  padding:0;
+
   background:#0d0d12;
+
   color:white;
+
   font-family:sans-serif;
+
 }
 
 .container{
+
   width:90%;
   max-width:700px;
+
   margin:auto;
+
   padding:50px 0;
+
 }
 
 h1{
+
   text-align:center;
-  font-size:48px;
+
+  font-size:52px;
+
+  margin-bottom:10px;
+
 }
 
 .subtitle{
+
   text-align:center;
-  color:#aaa;
+
+  color:#999;
+
   margin-bottom:40px;
+
 }
 
 .card{
+
   background:#171721;
+
   padding:30px;
-  border-radius:20px;
+
+  border-radius:24px;
+
+  border:3px solid transparent;
+
+  transition:0.3s;
+
 }
 
 #question{
-  font-size:26px;
+
+  font-size:28px;
+
+  margin-bottom:30px;
+
+  line-height:1.5;
+
 }
 
 button{
+
   width:100%;
-  padding:15px;
+
+  padding:16px;
+
   margin-top:15px;
+
   border:none;
-  border-radius:12px;
+
+  border-radius:14px;
+
   background:#7c3cff;
+
   color:white;
+
   font-size:16px;
+
+  cursor:pointer;
+
+  transition:0.2s;
+
+}
+
+button:hover{
+
+  transform:scale(1.02);
+
+  opacity:0.95;
+
 }
 
 #count{
-  color:#999;
+
   text-align:right;
+
+  color:#888;
+
+  margin-top:20px;
+
 }
 
 .hidden{
+
   display:none;
+
 }
 
 #result{
+
   text-align:center;
+
 }
 
 #resultCode{
-  color:#7c3cff;
-  font-size:42px;
+
+  font-size:46px;
+
+  margin-bottom:10px;
+
+}
+
+#resultName{
+
+  font-size:34px;
+
+  margin-bottom:20px;
+
+}
+
+#resultText{
+
+  line-height:1.9;
+
+  color:#ddd;
+
+}
+
+h3{
+
+  margin-top:30px;
+
+  color:white;
+
 }
