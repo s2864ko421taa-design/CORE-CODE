@@ -1,4 +1,3 @@
-<script>
 const questions = [
 {
 q:"意味が分からないことをやれと言われた時どうする？",
@@ -287,4 +286,3 @@ document.getElementById("resultText")
 .innerText = typeText[code];
 }
 showQuestion();
-</script>
