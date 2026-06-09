@@ -9,7 +9,19 @@ const questions = [
   { q:"考え事をする時どうなる？", a:[["直感で決める","S"],["順番に整理する","J"],["全体を見る","K"],["深く掘る","L"]] },
   { q:"話を聞く時に重視するのは？", a:[["テンポ","S"],["順序","J"],["全体像","K"],["本音","L"]] },
   { q:"人の発言を聞く時は？", a:[["単語を見る","S"],["前後の流れを見る","J"],["場全体を見る","K"],["矛盾を見る","L"]] },
-  { q:"議論で強いのは？", a:[["反応速度","S"],["説明力","J"],["俯瞰視点","K"],["深掘り","L"]] }
+  { q:"議論で強いのは？", a:[["反応速度","S"],["説明力","J"],["俯瞰視点","K"],["深掘り","L"]] },
+
+  { q:"初対面で無意識に見てるのは？", a:[["勢い","D"],["話の論理","I"],["感情","A"],["安心感","Y"]] },
+  { q:"褒められて一番嬉しいのは？", a:[["行動力","D"],["頭の良さ","I"],["優しさ","A"],["信頼感","Y"]] },
+  { q:"ピンチの時どうなりやすい？", a:[["突っ込む","D"],["考える","I"],["感情が出る","A"],["慎重になる","Y"]] },
+  { q:"人と話していて疲れるのは？", a:[["遅い人","D"],["浅い人","I"],["冷たい人","A"],["不安定な人","Y"]] },
+  { q:"一番許せないのは？", a:[["止められる","D"],["意味不明","I"],["否定される","A"],["裏切られる","Y"]] },
+
+  { q:"説明される時に理解しやすいのは？", a:[["まずやってみる","S"],["順番説明","J"],["全体から説明","K"],["深く理由を聞く","L"]] },
+  { q:"考え込む時どうなる？", a:[["即断する","S"],["整理する","J"],["俯瞰する","K"],["深読みする","L"]] },
+  { q:"会話で無意識に探すものは？", a:[["反応","S"],["流れ","J"],["空気","K"],["矛盾","L"]] },
+  { q:"人の説明で気になる部分は？", a:[["勢い","S"],["筋道","J"],["全体バランス","K"],["本心","L"]] },
+  { q:"問題が起きた時に先にすることは？", a:[["すぐ動く","S"],["原因を整理する","J"],["全体状況を見る","K"],["根本原因を掘る","L"]] }
 ];
 
 let current = 0;
@@ -19,18 +31,22 @@ let scores = {
   S:0,J:0,K:0,L:0
 };
 
+const typeList = [
+  "DS","DJ","DK","DL",
+  "AS","AJ","AK","AL",
+  "YS","YJ","YK","YL",
+  "IS","IJ","IK","IL"
+];
+
 function showQuestion(){
   const questionEl = document.getElementById("question");
   if(!questionEl) return;
 
   const q = questions[current];
+
   questionEl.innerText = q.q;
-
-  const answers = document.getElementById("answers");
-  answers.innerHTML = "";
-
-  document.getElementById("count").innerText =
-  (current + 1) + " / " + questions.length;
+  document.getElementById("answers").innerHTML = "";
+  document.getElementById("count").innerText = (current + 1) + " / " + questions.length;
 
   q.a.forEach(function(answer){
     const btn = document.createElement("button");
@@ -47,11 +63,11 @@ function showQuestion(){
       }
     };
 
-    answers.appendChild(btn);
+    document.getElementById("answers").appendChild(btn);
   });
 }
 
-function getRank(list,rank){
+function getRank(list, rank){
   const copy = list.slice();
 
   copy.sort(function(a,b){
@@ -91,16 +107,16 @@ function makeDetailHTML(data){
     <p style="color:${data.color};font-size:22px;">${data.quote}</p>
 
     <h3>強み</h3>
-    ${data.strengths.map(x=>"<p>・"+x+"</p>").join("")}
+    ${data.strengths.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
 
     <h3>弱み</h3>
-    ${data.weak.map(x=>"<p>・"+x+"</p>").join("")}
+    ${data.weak.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
 
     <h3>向いていること</h3>
-    ${data.jobs.map(x=>"<p>・"+x+"</p>").join("")}
+    ${data.jobs.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
 
     <h3>相性◎</h3>
-    ${data.match.map(x=>"<p>・"+x+"</p>").join("")}
+    ${data.match.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
   `;
 }
 
@@ -108,29 +124,29 @@ function setupTypesPage(){
   const mainArea = document.getElementById("mainTypes");
   if(!mainArea) return;
 
-  const mainList = ["D","A","Y","I"];
-  const subList = ["D","A","Y","I"];
+  const subAreaBox = document.getElementById("subArea");
+  const subArea = document.getElementById("subTypes");
 
-  mainList.forEach(function(main){
+  mainArea.innerHTML = "";
+
+  typeList.forEach(function(main){
     const card = document.createElement("div");
     card.className = "type-card";
-    card.innerText = main + "型";
+    card.innerText = main;
 
     card.onclick = function(){
-      document.getElementById("subArea").classList.remove("hidden");
-      document.getElementById("selectedMain").innerText =
-      "メイン：" + main + "型";
+      subAreaBox.classList.remove("hidden");
+      document.getElementById("selectedMain").innerText = "メイン：" + main;
 
-      const subArea = document.getElementById("subTypes");
       subArea.innerHTML = "";
 
-      subList.forEach(function(sub){
+      typeList.forEach(function(sub){
         const subCard = document.createElement("div");
         subCard.className = "type-card";
-        subCard.innerText = sub + "型";
+        subCard.innerText = sub;
 
         subCard.onclick = function(){
-          location.href = "detail.html?type=" + main + sub;
+          location.href = "detail.html?type=" + main + "-" + sub;
         };
 
         subArea.appendChild(subCard);
