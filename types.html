@@ -1,1 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CORE CODE タイプ一覧</title>
+  <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
 
+<main class="container">
+  <h1>タイプ一覧</h1>
+  <p class="subtitle">メインタイプを選んでください。</p>
+
+  <div id="mainTypes" class="grid"></div>
+
+  <div id="subArea" class="hidden">
+    <h2 id="selectedMain"></h2>
+    <p class="subtitle">サブタイプを選んでください。</p>
+    <div id="subTypes" class="grid"></div>
+  </div>
+
+  <button onclick="location.href='index.html'">ホームへ</button>
+</main>
+
+<script src="typeData.js?v=1"></script>
+<script src="script.js?v=1"></script>
+
+</body>
+</html>
