@@ -1,57 +1,24 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CORE CODE 詳細</title>
-  <link rel="stylesheet" href="style.css?v=2">
-</head>
-<body>
-
-<main class="container">
-
-  <section id="detail" class="card">
-    <h2 id="detailCode"></h2>
-    <h1 id="detailName"></h1>
-    <div id="detailText"></div>
-  </section>
-
-  <button onclick="location.href='types.html'">タイプ一覧へ</button>
-  <button onclick="location.href='index.html'">ホームへ</button>
-
-</main>
-
-<script src="typeData.js?v=2"></script>
+}
 
 <script>
 const params = new URLSearchParams(location.search);
 const type = params.get("type") || "IL-AS";
-
 const data = getTypeData(type);
-
 document.getElementById("detailCode").innerText = type;
 document.getElementById("detailName").innerText = data.title;
-
 document.getElementById("detailText").innerHTML = `
-  <p style="color:${data.color}; font-size:22px;">
-    ${data.quote}
-  </p>
-
-  <h3>強み</h3>
-  ${data.strengths.map(x => "<p>・" + x + "</p>").join("")}
-
-  <h3>弱み</h3>
-  ${data.weak.map(x => "<p>・" + x + "</p>").join("")}
-
-  <h3>向いていること</h3>
-  ${data.jobs.map(x => "<p>・" + x + "</p>").join("")}
-
-  <h3>相性◎</h3>
-  ${data.match.map(x => "<p>・" + x + "</p>").join("")}
+<p style="color:${data.color}; font-size:22px;">
+${data.quote}
+</p>
+<h3>強み</h3>
+${data.strengths.map(x => "<p>• " + x + "</p>").join("")}
+<h3>弱み</h3>
+${data.weak.map(x => "<p>• " + x + "</p>").join("")}
+<h3>向いていること</h3>
+${data.jobs.map(x => "<p>• " + x + "</p>").join("")}
+<h3>相性</h3>
+${data.match.map(x => "<p>• " + x + "</p>").join("")}
 `;
-
 document.getElementById("detail").style.borderColor = data.color;
 </script>
-
-</body>
-</html>
+``
