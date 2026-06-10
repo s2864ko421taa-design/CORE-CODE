@@ -246,8 +246,6 @@ function setupDetailPage(){
   document.getElementById("detailText").innerHTML = makeDetailHTML(data);
   document.getElementById("detail").style.borderColor = data.color;
 }
-
-showQuestion();
 const totalMain =
 scores.D + scores.I + scores.A + scores.Y;
 
@@ -277,5 +275,7 @@ document.getElementById("barK").style.width =
 
 document.getElementById("barL").style.width =
 (scores.L / totalSub * 100) + "%";
+
+showQuestion();
 setupTypesPage();
 setupDetailPage();
