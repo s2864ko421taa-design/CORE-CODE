@@ -156,11 +156,14 @@ function showResult(){
   document.getElementById("quiz").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
 
-  const energyMain = getRank(["D","Y","A","I"],1);
-  const energySub = getRank(["D","Y","A","I"],2);
-  const thinkingMain = getRank(["S","J","K","L"],1);
-  const thinkingSub = getRank(["S","J","K","L"],2);
+  const energySorted = ["D","Y","A","I"].sort((a,b)=>scores[b]-scores[a]);
+const thinkingSorted = ["S","J","K","L"].sort((a,b)=>scores[b]-scores[a]);
 
+const energyMain = energySorted[0];
+const thinkingMain = thinkingSorted[0];
+
+const energySub = scores[energySorted[1]] > 0 ? energySorted[1] : energyMain;
+const thinkingSub = scores[thinkingSorted[1]] > 0 ? thinkingSorted[1] : thinkingMain;
   const mainCode = energyMain + thinkingMain;
   const subCode = energySub + thinkingSub;
   const fullCode = mainCode + "-" + subCode;
