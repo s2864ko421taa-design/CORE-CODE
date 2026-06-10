@@ -4,24 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CORE CODE 診断</title>
-  <link rel="stylesheet" href="style.css?v=1">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
-  
-<section id="result" class="card hidden">
-  <h2 id="resultCode"></h2>
-  <h1 id="resultName"></h1>
-  <div id="resultText"></div>
 
-  <h2>CORE BALANCE</h2>
-
-  <!-- ここにD/I/A/Y/S/J/K/Lのゲージを全部入れる -->
-
-  <button id="detailButton">詳細を見る</button>
-  <button onclick="location.reload()">もう一度診断する</button>
-  <button onclick="location.href='index.html'">ホームへ</button>
-</section>
-  
 <main class="container">
   <h1>CORE CODE</h1>
   <p class="subtitle">診断ページ</p>
@@ -37,88 +23,26 @@
     <h1 id="resultName"></h1>
     <div id="resultText"></div>
 
+    <h2>CORE BALANCE</h2>
+
+    <div class="gauge"><div class="gauge-top"><span>D</span><span id="textD">0%</span></div><div class="bar"><div id="barD" class="fill"></div></div></div>
+    <div class="gauge"><div class="gauge-top"><span>I</span><span id="textI">0%</span></div><div class="bar"><div id="barI" class="fill"></div></div></div>
+    <div class="gauge"><div class="gauge-top"><span>A</span><span id="textA">0%</span></div><div class="bar"><div id="barA" class="fill"></div></div></div>
+    <div class="gauge"><div class="gauge-top"><span>Y</span><span id="textY">0%</span></div><div class="bar"><div id="barY" class="fill"></div></div></div>
+
+    <div class="gauge"><div class="gauge-top"><span>S</span><span id="textS">0%</span></div><div class="bar"><div id="barS" class="fill"></div></div></div>
+    <div class="gauge"><div class="gauge-top"><span>J</span><span id="textJ">0%</span></div><div class="bar"><div id="barJ" class="fill"></div></div></div>
+    <div class="gauge"><div class="gauge-top"><span>K</span><span id="textK">0%</span></div><div class="bar"><div id="barK" class="fill"></div></div></div>
+    <div class="gauge"><div class="gauge-top"><span>L</span><span id="textL">0%</span></div><div class="bar"><div id="barL" class="fill"></div></div></div>
+
     <button id="detailButton">詳細を見る</button>
     <button onclick="location.reload()">もう一度診断する</button>
     <button onclick="location.href='index.html'">ホームへ</button>
   </section>
 </main>
 
-<script src="typeData.js?v=1"></script>
-<script src="script.js?v=1"></script>
-  
-<h2>CORE BALANCE</h2>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>D</span>
-    <span id="textD">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barD" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>I</span>
-    <span id="textI">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barI" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>A</span>
-    <span id="textA">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barA" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>Y</span>
-    <span id="textY">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barY" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>S</span>
-    <span id="textS">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barS" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>J</span>
-    <span id="textJ">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barJ" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>K</span>
-    <span id="textK">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barK" class="fill"></div>
-  </div>
-</div>
-<div class="gauge">
-  <div class="gauge-top">
-    <span>L</span>
-    <span id="textL">0%</span>
-  </div>
-  <div class="bar">
-    <div id="barL" class="fill"></div>
-  </div>
-</div>
-  
+<script src="typeData.js?v=4"></script>
+<script src="script.js?v=4"></script>
+
 </body>
 </html>
