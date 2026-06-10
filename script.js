@@ -248,5 +248,34 @@ function setupDetailPage(){
 }
 
 showQuestion();
+const totalMain =
+scores.D + scores.I + scores.A + scores.Y;
+
+const totalSub =
+scores.S + scores.J + scores.K + scores.L;
+
+document.getElementById("barD").style.width =
+(scores.D / totalMain * 100) + "%";
+
+document.getElementById("barI").style.width =
+(scores.I / totalMain * 100) + "%";
+
+document.getElementById("barA").style.width =
+(scores.A / totalMain * 100) + "%";
+
+document.getElementById("barY").style.width =
+(scores.Y / totalMain * 100) + "%";
+
+document.getElementById("barS").style.width =
+(scores.S / totalSub * 100) + "%";
+
+document.getElementById("barJ").style.width =
+(scores.J / totalSub * 100) + "%";
+
+document.getElementById("barK").style.width =
+(scores.K / totalSub * 100) + "%";
+
+document.getElementById("barL").style.width =
+(scores.L / totalSub * 100) + "%";
 setupTypesPage();
 setupDetailPage();
