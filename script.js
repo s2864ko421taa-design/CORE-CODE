@@ -232,49 +232,47 @@ function setupTypesPage(){
   });
 }
 
-function setupDetailPage(){
-  const detailCode = document.getElementById("detailCode");
-  if(!detailCode) return;
+function showResult(){
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
 
-  const params = new URLSearchParams(location.search);
-  const type = params.get("type") || "IL-AS";
+  const energyMain = getRank(["D","Y","A","I"],1);
+  const energySub = getRank(["D","Y","A","I"],2);
+  const thinkingMain = getRank(["S","J","K","L"],1);
+  const thinkingSub = getRank(["S","J","K","L"],2);
 
-  const data = getTypeData(type);
+  const mainCode = energyMain + thinkingMain;
+  const subCode = energySub + thinkingSub;
+  const fullCode = mainCode + "-" + subCode;
 
-  detailCode.innerText = type;
-  document.getElementById("detailName").innerText = data.title;
-  document.getElementById("detailText").innerHTML = makeDetailHTML(data);
-  document.getElementById("detail").style.borderColor = data.color;
+  const data = getTypeData(fullCode);
+
+  document.getElementById("resultCode").innerText = fullCode;
+  document.getElementById("resultName").innerText = data.title;
+  document.getElementById("resultText").innerHTML = makeDetailHTML(data);
+  document.getElementById("result").style.borderColor = data.color;
+
+  document.getElementById("detailButton").onclick = function(){
+    location.href = "detail.html?type=" + fullCode;
+  };
+
+  setBar("D", scores.D, scores.D + scores.I + scores.A + scores.Y);
+  setBar("I", scores.I, scores.D + scores.I + scores.A + scores.Y);
+  setBar("A", scores.A, scores.D + scores.I + scores.A + scores.Y);
+  setBar("Y", scores.Y, scores.D + scores.I + scores.A + scores.Y);
+
+  setBar("S", scores.S, scores.S + scores.J + scores.K + scores.L);
+  setBar("J", scores.J, scores.S + scores.J + scores.K + scores.L);
+  setBar("K", scores.K, scores.S + scores.J + scores.K + scores.L);
+  setBar("L", scores.L, scores.S + scores.J + scores.K + scores.L);
 }
-const totalMain =
-scores.D + scores.I + scores.A + scores.Y;
 
-const totalSub =
-scores.S + scores.J + scores.K + scores.L;
+function setBar(key, value, total){
+  const percent = Math.round(value / total * 100);
 
-document.getElementById("barD").style.width =
-(scores.D / totalMain * 100) + "%";
-
-document.getElementById("barI").style.width =
-(scores.I / totalMain * 100) + "%";
-
-document.getElementById("barA").style.width =
-(scores.A / totalMain * 100) + "%";
-
-document.getElementById("barY").style.width =
-(scores.Y / totalMain * 100) + "%";
-
-document.getElementById("barS").style.width =
-(scores.S / totalSub * 100) + "%";
-
-document.getElementById("barJ").style.width =
-(scores.J / totalSub * 100) + "%";
-
-document.getElementById("barK").style.width =
-(scores.K / totalSub * 100) + "%";
-
-document.getElementById("barL").style.width =
-(scores.L / totalSub * 100) + "%";
+  document.getElementById("bar" + key).style.width = percent + "%";
+  document.getElementById("text" + key).innerText = percent + "%";
+}
 
 showQuestion();
 setupTypesPage();
