@@ -52,8 +52,9 @@ const questions = [
 let current = 0;
 
 let scores = {
-  D:0,Y:0,A:0,I:0,
-  S:0,J:0,K:0,L:0
+ main:{D:0,Y:0,A:0,I:0,S:0,J:0,K:0,L:0},
+ sub:{D:0,Y:0,A:0,I:0,S:0,J:0,K:0,L:0},
+ total:{D:0,Y:0,A:0,I:0,S:0,J:0,K:0,L:0}
 };
 
 const typeList = [
