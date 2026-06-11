@@ -63,9 +63,6 @@ const typeList = [
   "YS","YJ","YK","YL",
   "IS","IJ","IK","IL"
 ];
-function showQuestion(){
-  const questionEl = document.getElementById("question");
-  if(!questionEl) return;
 
   const q = questions[current];
 
@@ -104,25 +101,6 @@ function getRank(list, rank){
   });
 
   return copy[rank - 1];
-}
-
-
-function makeDetailHTML(data){
-  return `
-    <p style="color:${data.color};font-size:22px;">${data.quote}</p>
-
-    <h3>強み</h3>
-    ${data.strengths.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
-
-    <h3>弱み</h3>
-    ${data.weak.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
-
-    <h3>向いていること</h3>
-    ${data.jobs.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
-
-    <h3>相性◎</h3>
-    ${data.match.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
-  `;
 }
 
 function setupTypesPage(){
@@ -321,13 +299,6 @@ function setupTypesPage(){
 
     mainArea.appendChild(card);
   });
-}
-
-function setBar(key, value, total){
-  const percent = Math.round(value / total * 100);
-
-  document.getElementById("bar" + key).style.width = percent + "%";
-  document.getElementById("text" + key).innerText = percent + "%";
 }
 
 showQuestion();
