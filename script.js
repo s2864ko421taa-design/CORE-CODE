@@ -77,9 +77,13 @@ function showQuestion(){
     const btn = document.createElement("button");
     btn.innerText = answer[0];
 
-    btn.onclick = function(){
-      scores[answer[1]]++;
-      current++;
+if(current < 24){
+    scores.main[answer[1]]++;
+}else{
+    scores.sub[answer[1]]++;
+}
+
+scores.total[answer[1]]++;
 
       if(current < questions.length){
         showQuestion();
