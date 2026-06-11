@@ -63,7 +63,6 @@ const typeList = [
   "YS","YJ","YK","YL",
   "IS","IJ","IK","IL"
 ];
-
 function showQuestion(){
   const questionEl = document.getElementById("question");
   if(!questionEl) return;
