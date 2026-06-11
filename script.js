@@ -106,33 +106,6 @@ function getRank(list, rank){
   return copy[rank - 1];
 }
 
-function showResult(){
-  document.getElementById("quiz").classList.add("hidden");
-  document.getElementById("result").classList.remove("hidden");
-
-  const energySorted = ["D","Y","A","I"].sort((a,b)=>scores[b]-scores[a]);
-const thinkingSorted = ["S","J","K","L"].sort((a,b)=>scores[b]-scores[a]);
-
-const energyMain = energySorted[0];
-const thinkingMain = thinkingSorted[0];
-
-const energySub = scores[energySorted[1]] > 0 ? energySorted[1] : energyMain;
-const thinkingSub = scores[thinkingSorted[1]] > 0 ? thinkingSorted[1] : thinkingMain;
-  const mainCode = energyMain + thinkingMain;
-  const subCode = energySub + thinkingSub;
-  const fullCode = mainCode + "-" + subCode;
-
-  const data = getTypeData(fullCode);
-
-  document.getElementById("resultCode").innerText = fullCode;
-  document.getElementById("resultName").innerText = data.title;
-  document.getElementById("resultText").innerHTML = makeDetailHTML(data);
-  document.getElementById("result").style.borderColor = data.color;
-
-  document.getElementById("detailButton").onclick = function(){
-    location.href = "detail.html?type=" + fullCode;
-  };
-}
 
 function makeDetailHTML(data){
   return `
@@ -188,21 +161,6 @@ function setupTypesPage(){
     mainArea.appendChild(card);
   });
 }
-
-let current = 0;
-
-let scores = {
-  main: { D:0, Y:0, A:0, I:0, S:0, J:0, K:0, L:0 },
-  sub:  { D:0, Y:0, A:0, I:0, S:0, J:0, K:0, L:0 },
-  total:{ D:0, Y:0, A:0, I:0, S:0, J:0, K:0, L:0 }
-};
-
-const typeList = [
-  "DS","DJ","DK","DL",
-  "AS","AJ","AK","AL",
-  "YS","YJ","YK","YL",
-  "IS","IJ","IK","IL"
-];
 
 function showQuestion(){
   const questionEl = document.getElementById("question");
@@ -364,10 +322,6 @@ function setupTypesPage(){
     mainArea.appendChild(card);
   });
 }
-
-showQuestion();
-setupTypesPage();
-setupDetailPage();
 
 function setBar(key, value, total){
   const percent = Math.round(value / total * 100);
