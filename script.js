@@ -185,21 +185,87 @@ function setupTypesPage(){
   });
 }
 
+let current = 0;
+
+let scores = {
+  main: { D:0, Y:0, A:0, I:0, S:0, J:0, K:0, L:0 },
+  sub:  { D:0, Y:0, A:0, I:0, S:0, J:0, K:0, L:0 },
+  total:{ D:0, Y:0, A:0, I:0, S:0, J:0, K:0, L:0 }
+};
+
+const typeList = [
+  "DS","DJ","DK","DL",
+  "AS","AJ","AK","AL",
+  "YS","YJ","YK","YL",
+  "IS","IJ","IK","IL"
+];
+
+function showQuestion(){
+  const questionEl = document.getElementById("question");
+  if(!questionEl) return;
+
+  const q = questions[current];
+
+  questionEl.innerText = q.q;
+  document.getElementById("answers").innerHTML = "";
+  document.getElementById("count").innerText =
+    (current + 1) + " / " + questions.length;
+
+  q.a.forEach(function(answer){
+    const btn = document.createElement("button");
+    btn.innerText = answer[0];
+
+    btn.onclick = function(){
+      const key = answer[1];
+
+      // 前半24問はメイン、後半24問はサブ
+      if(current < 24){
+        scores.main[key]++;
+      }else{
+        scores.sub[key]++;
+      }
+
+      // グラフ表示用の合計
+      scores.total[key]++;
+
+      current++;
+
+      if(current < questions.length){
+        showQuestion();
+      }else{
+        showResult();
+      }
+    };
+
+    document.getElementById("answers").appendChild(btn);
+  });
+}
+
+function getTop(list, scoreObj){
+  const sorted = list.slice().sort(function(a,b){
+    return scoreObj[b] - scoreObj[a];
+  });
+
+  return sorted[0];
+}
+
 function showResult(){
   document.getElementById("quiz").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
 
-const energySorted = ["D","Y","A","I"].sort((a,b)=>scores[b]-scores[a]);
-const thinkingSorted = ["S","J","K","L"].sort((a,b)=>scores[b]-scores[a]);
+  const energyKeys = ["D","Y","A","I"];
+  const thinkingKeys = ["S","J","K","L"];
 
-const energyMain = energySorted[0];
-const thinkingMain = thinkingSorted[0];
+  // メイン診断
+  const mainEnergy = getTop(energyKeys, scores.main);
+  const mainThinking = getTop(thinkingKeys, scores.main);
+  const mainCode = mainEnergy + mainThinking;
 
-const energySub = scores[energySorted[1]] > 0 ? energySorted[1] : energyMain;
-const thinkingSub = scores[thinkingSorted[1]] > 0 ? thinkingSorted[1] : thinkingMain;
+  // サブ診断
+  const subEnergy = getTop(energyKeys, scores.sub);
+  const subThinking = getTop(thinkingKeys, scores.sub);
+  const subCode = subEnergy + subThinking;
 
-  const mainCode = energyMain + thinkingMain;
-  const subCode = energySub + thinkingSub;
   const fullCode = mainCode + "-" + subCode;
 
   const data = getTypeData(fullCode);
@@ -213,16 +279,91 @@ const thinkingSub = scores[thinkingSorted[1]] > 0 ? thinkingSorted[1] : thinking
     location.href = "detail.html?type=" + fullCode;
   };
 
-  setBar("D", scores.D, scores.D + scores.I + scores.A + scores.Y);
-  setBar("I", scores.I, scores.D + scores.I + scores.A + scores.Y);
-  setBar("A", scores.A, scores.D + scores.I + scores.A + scores.Y);
-  setBar("Y", scores.Y, scores.D + scores.I + scores.A + scores.Y);
+  const energyTotal =
+    scores.total.D + scores.total.Y + scores.total.A + scores.total.I;
 
-  setBar("S", scores.S, scores.S + scores.J + scores.K + scores.L);
-  setBar("J", scores.J, scores.S + scores.J + scores.K + scores.L);
-  setBar("K", scores.K, scores.S + scores.J + scores.K + scores.L);
-  setBar("L", scores.L, scores.S + scores.J + scores.K + scores.L);
+  const thinkingTotal =
+    scores.total.S + scores.total.J + scores.total.K + scores.total.L;
+
+  setBar("D", scores.total.D, energyTotal);
+  setBar("I", scores.total.I, energyTotal);
+  setBar("A", scores.total.A, energyTotal);
+  setBar("Y", scores.total.Y, energyTotal);
+
+  setBar("S", scores.total.S, thinkingTotal);
+  setBar("J", scores.total.J, thinkingTotal);
+  setBar("K", scores.total.K, thinkingTotal);
+  setBar("L", scores.total.L, thinkingTotal);
 }
+
+function setBar(key, value, total){
+  const percent = total === 0 ? 0 : Math.round(value / total * 100);
+
+  const bar = document.getElementById("bar" + key);
+  const text = document.getElementById("text" + key);
+
+  if(bar) bar.style.width = percent + "%";
+  if(text) text.innerText = key + percent + "%";
+}
+
+function makeDetailHTML(data){
+  return `
+    <p style="color:${data.color};font-size:22px;">${data.quote}</p>
+
+    <h3>強み</h3>
+    ${data.strengths.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
+
+    <h3>弱み</h3>
+    ${data.weak.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
+
+    <h3>向いていること</h3>
+    ${data.jobs.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
+
+    <h3>相性</h3>
+    ${data.match.map(function(x){ return "<p>・" + x + "</p>"; }).join("")}
+  `;
+}
+
+function setupTypesPage(){
+  const mainArea = document.getElementById("mainTypes");
+  if(!mainArea) return;
+
+  const subAreaBox = document.getElementById("subArea");
+  const subArea = document.getElementById("subTypes");
+
+  mainArea.innerHTML = "";
+
+  typeList.forEach(function(main){
+    const card = document.createElement("div");
+    card.className = "type-card";
+    card.innerText = main;
+
+    card.onclick = function(){
+      subAreaBox.classList.remove("hidden");
+      document.getElementById("selectedMain").innerText = "メイン：" + main;
+
+      subArea.innerHTML = "";
+
+      typeList.forEach(function(sub){
+        const subCard = document.createElement("div");
+        subCard.className = "type-card";
+        subCard.innerText = sub;
+
+        subCard.onclick = function(){
+          location.href = "detail.html?type=" + main + "-" + sub;
+        };
+
+        subArea.appendChild(subCard);
+      });
+    };
+
+    mainArea.appendChild(card);
+  });
+}
+
+showQuestion();
+setupTypesPage();
+setupDetailPage();
 
 function setBar(key, value, total){
   const percent = Math.round(value / total * 100);
